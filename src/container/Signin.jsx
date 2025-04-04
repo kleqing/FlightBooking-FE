@@ -4,31 +4,34 @@ import { MdOutlineClose } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-// eslint-disable-next-line react/prop-types
-const Signin = ({signin, setSignin}) => {
+const Signin = ({ signin, setSignin }) => {
   const navigate = useNavigate();
 
-  const[email, setEmail] = useState('')
-  const[password, setPassword] = useState('')
-  const[check1, setCheck1] = useState(false)
-  const[check2, setCheck2] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [check1, setCheck1] = useState(false)
+  const [check2, setCheck2] = useState(false)
 
   const submitInputs = (e) => {
-     e.preventDefault();
+    e.preventDefault();
 
-     if (email.trim() !== '' && password.trim() !== ''){
+    if (email.trim() !== '' && password.trim() !== '') {
       if (check1 && check2) {
         toast.success("Sign in successful")
-        navigate('/') 
+        navigate('/')
         setSignin(false)
       } else {
-       toast.warning("Please check the checkboxes")
+        toast.warning("Please check the checkboxes")
       }
-     } else {
-       toast.warning("Please fill the details")
-      }
-    
-  }
+    } else {
+      toast.warning("Please fill the details")
+    }
+
+  };
+
+  const loginWithGoogle = () => {
+    window.location.href = 'https://localhost:7129/api/account/login/google?returnUrl=http://localhost:5173';
+  };
 
   return (
     <div className="absolute top-36 right-0 left-0 m-auto z-20 bg-[#FFFFFF] shadowCard w-[310px] sm:w-[468px] md:w-[568px] rounded px-8 py-6 flex flex-col  gap-6 scaleUp">
@@ -108,7 +111,7 @@ const Signin = ({signin, setSignin}) => {
       <div className="w-full flex items-center justify-center">
         <button
           className="w-full flex gap-2 items-center justify-center border-[1px] border-[#605DEC] rounded p-3"
-          onClick={() => setSignin(false)}
+          onClick={loginWithGoogle}
         >
           <FcGoogle className="w-[18px] h-[18px]" />
           <p className="text-[#605CDE] text-[16px] leading-6">
