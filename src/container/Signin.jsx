@@ -4,6 +4,7 @@ import { MdOutlineClose } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+// eslint-disable-next-line react/prop-types
 const Signin = ({ signin, setSignin }) => {
   const navigate = useNavigate();
 
