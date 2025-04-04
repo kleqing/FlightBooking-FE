@@ -1,62 +1,50 @@
-import { useState } from 'react'
-import './App.css'
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import { Footer, Navbar } from "./components";
+import {
+  Confirm,
+  FlightExplore,
+  Flights,
+  Hotels,
+  Packages,
+  PassengerInfo,
+  Payment,
+  SeatSelect,
+} from "./pages";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-function App() {
-  const [response, setResponse] = useState(null);
-  const [error, setError] = useState(null);
-
-  const createUser = async () => {
-    const userData = {
-      id: "BFC91492-6C16-4577-8E32-679342B26E4F",
-      normalizedUserName: "test123",
-      normalizedEmail: "newtest@gmail.com",
-      emailConfirmed: true,
-      passwordHash: "12312312233",
-      securityStamp: "None",
-      concurrencyStamp: "None",
-      phoneNumberConfirmed: false,
-      twoFactorEnabled: false,
-      lockoutEnd: "2025-04-03T08:01:41.376Z",
-      lockoutEnabled: false,
-      accessFailedCount: 0,
-      userName: "Test123",
-      email: "newTest@gmail.com",
-      dateOfBirth: "2025-04-03T08:01:41.376Z",
-      phoneNumber: "string",
-      address: "string",
-      createdDate: "2025-04-03T08:01:41.376Z"
-    };
-
-    try {
-      const res = await fetch('https://localhost:7129/User', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userData)
-      });
-
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error('Network response was not ok');
-      }
-      setResponse(data);
-    }
-    catch (err) {
-      setError(err);
-    }
-  };
-
+const App = () => {
   return (
-      <div>
-        <h1>Create User</h1>
-        <button onClick={createUser}>
-          Create User
-        </button>
-        {response && <p>{JSON.stringify(response)}</p>}
-        {error && <p style={{ color: 'red' }}>{error.message}</p>}
+    <>
+      <div className="font-Nunito overflow-hidden max-w-[1440px] mx-auto">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Flights />} />
+          <Route path="/hotels" element={<Hotels />} />
+          <Route path="/packages" element={<Packages />} />
+          <Route path="/explore" element={<FlightExplore />} />
+          <Route path="/passenger-info" element={<PassengerInfo />} />
+          <Route path="/seat-selection" element={<SeatSelect />} />
+          <Route path="/payment" element={<Payment />} />
+          <Route path="/confirm" element={<Confirm />} />
+        </Routes>
+        <Footer />
+        <ToastContainer
+          position="bottom-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
       </div>
+    </>
   );
-}
+};
 
 export default App;
